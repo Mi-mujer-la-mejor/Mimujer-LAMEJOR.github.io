@@ -3,325 +3,1279 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Siempre seremos tú y yo ❤️</title>
-
-<link rel="icon" type="image/jpeg" href="https://i.imgur.com/GzaX8eu.jpeg">
-<link rel="shortcut icon" href="https://i.imgur.com/GzaX8eu.jpeg">
-<link rel="apple-touch-icon" href="https://i.imgur.com/GzaX8eu.jpeg">
-
+<title>M + S — Para siempre</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Mono:wght@300;400&family=Playfair+Display:ital,wght@1,700&display=swap" rel="stylesheet">
 <style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial,sans-serif;
+:root {
+  --cream: #f5f0e8;
+  --rose: #c8847a;
+  --deep: #1a0f0f;
+  --wine: #6b2d3a;
+  --gold: #c9a96e;
+  --smoke: #2d1f1f;
+  --blush: #e8c4bb;
 }
-body{
-    background: linear-gradient(180deg,#050816,#0d1330);
-    color:white;
-    overflow-x:hidden;
+ 
+* { margin: 0; padding: 0; box-sizing: border-box; }
+ 
+html { scroll-behavior: smooth; }
+ 
+body {
+  background: var(--deep);
+  color: var(--cream);
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  overflow-x: hidden;
+  cursor: none;
 }
-header{
-    text-align:center;
-    padding:40px 20px;
+ 
+/* CURSOR */
+.cursor {
+  width: 6px; height: 6px;
+  background: var(--rose);
+  border-radius: 50%;
+  position: fixed;
+  top: 0; left: 0;
+  pointer-events: none;
+  z-index: 9999;
+  transition: transform 0.1s;
 }
-header h1{
-    font-size:55px;
-    color:#ffb6ff;
-    text-shadow:0 0 10px #ff66ff;
-    font-family:cursive;
+.cursor-ring {
+  width: 32px; height: 32px;
+  border: 1px solid rgba(200, 132, 122, 0.4);
+  border-radius: 50%;
+  position: fixed;
+  top: 0; left: 0;
+  pointer-events: none;
+  z-index: 9998;
+  transition: transform 0.18s ease, width 0.2s, height 0.2s;
 }
-.grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
-    gap:20px;
-    padding:20px;
+ 
+/* CANVAS PARTICLES */
+#canvas-bg {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: 0;
+  pointer-events: none;
 }
-.card{
-    background:rgba(255,255,255,.05);
-    border:1px solid rgba(255,255,255,.1);
-    border-radius:20px;
-    padding:20px;
-    box-shadow:0 0 15px rgba(255,105,180,.25);
-    backdrop-filter:blur(10px);
+ 
+/* PRELOADER */
+#preloader {
+  position: fixed;
+  inset: 0;
+  background: var(--deep);
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  transition: opacity 1s ease, visibility 1s;
 }
-h2{
-    color:#ff9be8;
-    margin-bottom:15px;
+#preloader.hidden { opacity: 0; visibility: hidden; }
+.pre-text {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(28px, 6vw, 60px);
+  color: var(--rose);
+  font-style: italic;
+  letter-spacing: 4px;
+  animation: breathe 2s ease-in-out infinite;
 }
-.carta{
-    background: rgba(255,240,250,0.95);
-    color:#333;
-    padding:25px;
-    border-radius:20px;
-    min-height:220px;
-    font-family:cursive;
-    font-size:20px;
-    line-height:1.8;
-    box-shadow:0 0 20px rgba(255,105,180,.4);
-    border:2px solid pink;
-    position:relative;
-    animation:aparecer 1.5s ease;
+.pre-sub {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: rgba(200,132,122,0.4);
+  letter-spacing: 6px;
+  text-transform: uppercase;
 }
-.carta::after{
-    content:"❤️";
-    position:absolute;
-    top:10px;
-    right:15px;
-    font-size:25px;
+.pre-bar {
+  width: 120px; height: 1px;
+  background: rgba(200,132,122,0.2);
+  position: relative;
+  overflow: hidden;
 }
-@keyframes aparecer{
-    from{opacity:0; transform:translateY(20px);}
-    to{opacity:1; transform:translateY(0);}
+.pre-bar::after {
+  content: '';
+  position: absolute;
+  left: -100%; top: 0;
+  width: 100%; height: 100%;
+  background: var(--rose);
+  animation: load 2.5s ease forwards;
 }
-ul{
-    list-style:none;
+@keyframes load { to { left: 100%; } }
+@keyframes breathe {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
 }
-ul li{
-    padding:8px 0;
-    border-bottom:1px solid rgba(255,255,255,.1);
+ 
+/* NAV */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 24px 48px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  mix-blend-mode: difference;
 }
-.galeria{
-    display:flex;
-    gap:10px;
-    overflow-x:auto;
+.nav-logo {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 4px;
+  color: var(--cream);
+  opacity: 0.6;
+  text-transform: uppercase;
 }
-.galeria img{
-    width:150px;
-    border-radius:10px;
+.nav-links {
+  display: flex;
+  gap: 32px;
+  list-style: none;
 }
-button{
-    width:100%;
-    padding:15px;
-    border:none;
-    border-radius:15px;
-    background:#ff4fc3;
-    color:white;
-    font-size:20px;
-    cursor:pointer;
+.nav-links a {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: var(--cream);
+  text-decoration: none;
+  opacity: 0.5;
+  transition: opacity 0.3s;
+  text-transform: uppercase;
 }
-#contador{
-    font-size:28px;
-    text-align:center;
-    font-weight:bold;
+.nav-links a:hover { opacity: 1; }
+ 
+/* SECTIONS */
+section { position: relative; z-index: 1; }
+ 
+/* HERO */
+#hero {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  padding: 0 24px;
+  overflow: hidden;
 }
-.corazon{
-    position:fixed;
-    bottom:-10px;
-    color:pink;
-    animation:subir linear infinite;
+.hero-eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 8px;
+  color: var(--gold);
+  text-transform: uppercase;
+  opacity: 0;
+  animation: fadeUp 1s ease 3s forwards;
+  margin-bottom: 32px;
 }
-@keyframes subir{
-    0%{transform:translateY(0);}
-    100%{transform:translateY(-100vh);}
+.hero-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(52px, 12vw, 160px);
+  font-style: italic;
+  line-height: 0.9;
+  color: var(--cream);
+  opacity: 0;
+  animation: fadeUp 1.2s ease 3.2s forwards;
+  letter-spacing: -2px;
 }
-.popup{
-  position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  background:rgba(0,0,0,0.8);
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  z-index:9999;
+.hero-title .accent { color: var(--rose); }
+.hero-sub {
+  font-size: clamp(16px, 2vw, 22px);
+  color: rgba(245, 240, 232, 0.5);
+  font-style: italic;
+  margin-top: 28px;
+  opacity: 0;
+  animation: fadeUp 1s ease 3.6s forwards;
+  font-weight: 300;
+  letter-spacing: 1px;
 }
-
-.popup-contenido{
-  background:#111;
-  padding:30px;
-  border-radius:20px;
-  text-align:center;
-  box-shadow:0 0 20px rgba(255,105,180,.5);
+.hero-scroll {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 4px;
+  color: rgba(245,240,232,0.3);
+  text-transform: uppercase;
+  animation: fadeUp 1s ease 4s forwards, bounce 2s ease 5s infinite;
+  opacity: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
 }
-
-.popup-contenido p{
-  margin-bottom:20px;
-  font-size:20px;
+.hero-scroll::after {
+  content: '';
+  width: 1px;
+  height: 60px;
+  background: linear-gradient(to bottom, rgba(200,132,122,0.5), transparent);
+  display: block;
 }
-
-.popup-contenido button{
-  padding:10px 20px;
-  border:none;
-  border-radius:10px;
-  background:#ff4fc3;
-  color:white;
-  font-size:16px;
-  cursor:pointer;
+@keyframes bounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(8px); }
 }
-  
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+ 
+/* HORIZONTAL TICKER */
+.ticker-wrap {
+  padding: 18px 0;
+  background: var(--wine);
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
+  z-index: 2;
+}
+.ticker-track {
+  display: inline-block;
+  animation: ticker 25s linear infinite;
+}
+.ticker-item {
+  display: inline-block;
+  padding: 0 40px;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 4px;
+  color: rgba(245,240,232,0.7);
+  text-transform: uppercase;
+}
+.ticker-item .dot { color: var(--gold); margin: 0 8px; }
+@keyframes ticker {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+ 
+/* CARTA SECTION */
+#carta {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  padding: 120px 80px;
+  gap: 80px;
+}
+.carta-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 6px;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 32px;
+}
+.carta-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(36px, 5vw, 64px);
+  font-style: italic;
+  line-height: 1.1;
+  color: var(--cream);
+  margin-bottom: 40px;
+}
+.carta-body {
+  font-size: 18px;
+  line-height: 1.9;
+  color: rgba(245,240,232,0.7);
+  font-weight: 300;
+  max-width: 480px;
+}
+.carta-body em { color: var(--rose); font-style: normal; }
+.carta-visual {
+  position: relative;
+  height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.carta-orb {
+  width: 280px; height: 280px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, var(--wine) 0%, var(--deep) 70%);
+  border: 1px solid rgba(200,132,122,0.15);
+  position: relative;
+  animation: float 6s ease-in-out infinite;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.orb-text {
+  font-family: 'Playfair Display', serif;
+  font-size: 80px;
+  font-style: italic;
+  color: var(--rose);
+  opacity: 0.4;
+  user-select: none;
+}
+.orb-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(200,132,122,0.08);
+  animation: spin linear infinite;
+}
+.orb-ring:nth-child(2) { width: 320px; height: 320px; animation-duration: 20s; }
+.orb-ring:nth-child(3) { width: 380px; height: 380px; animation-duration: 30s; animation-direction: reverse; }
+.orb-ring:nth-child(4) { width: 440px; height: 440px; animation-duration: 45s; border-style: dashed; }
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-20px) rotate(3deg); }
+}
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+ 
+/* REVEAL CARDS */
+#razones {
+  padding: 120px 80px;
+  background: var(--smoke);
+}
+.section-header {
+  text-align: center;
+  margin-bottom: 80px;
+}
+.section-header .label {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 6px;
+  color: var(--gold);
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 16px;
+}
+.section-header h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(32px, 5vw, 60px);
+  font-style: italic;
+  color: var(--cream);
+}
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+}
+.reveal-card {
+  background: var(--deep);
+  border: 1px solid rgba(200,132,122,0.08);
+  padding: 48px 36px;
+  cursor: pointer;
+  transition: background 0.4s, border-color 0.4s;
+  position: relative;
+  overflow: hidden;
+  min-height: 280px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.reveal-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--wine);
+  transform: translateY(100%);
+  transition: transform 0.5s cubic-bezier(0.76, 0, 0.24, 1);
+  z-index: 0;
+}
+.reveal-card:hover::before { transform: translateY(0); }
+.card-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: rgba(200,132,122,0.3);
+  position: relative;
+  z-index: 1;
+}
+.card-front-text {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  font-style: italic;
+  color: var(--cream);
+  position: relative;
+  z-index: 1;
+  transition: opacity 0.3s;
+}
+.card-hover-text {
+  position: absolute;
+  inset: 0;
+  padding: 48px 36px;
+  display: flex;
+  align-items: center;
+  font-size: 15px;
+  line-height: 1.7;
+  color: rgba(245,240,232,0.85);
+  font-weight: 300;
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 0.3s 0.2s;
+}
+.reveal-card:hover .card-hover-text { opacity: 1; }
+.reveal-card:hover .card-front-text { opacity: 0; }
+ 
+/* GALERIA */
+#galeria {
+  padding: 120px 0;
+  overflow: hidden;
+}
+.galeria-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 6px;
+  color: var(--gold);
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 60px;
+  display: block;
+}
+.photos-strip {
+  display: flex;
+  gap: 16px;
+  padding: 0 80px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+.photos-strip::-webkit-scrollbar { display: none; }
+.photo-item {
+  flex: 0 0 320px;
+  height: 420px;
+  border-radius: 2px;
+  overflow: hidden;
+  scroll-snap-align: start;
+  position: relative;
+  cursor: pointer;
+}
+.photo-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: sepia(20%) contrast(1.05);
+  transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 0.4s;
+}
+.photo-item:hover img {
+  transform: scale(1.05);
+  filter: sepia(0%) contrast(1.1);
+}
+.photo-caption {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 24px 20px 20px;
+  background: linear-gradient(transparent, rgba(26,15,15,0.8));
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 3px;
+  color: rgba(245,240,232,0.6);
+  text-transform: uppercase;
+  transform: translateY(10px);
+  opacity: 0;
+  transition: all 0.3s;
+}
+.photo-item:hover .photo-caption { transform: translateY(0); opacity: 1; }
+.scroll-hint {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 3px;
+  color: rgba(245,240,232,0.2);
+  text-transform: uppercase;
+  text-align: center;
+  margin-top: 24px;
+}
+ 
+/* CONTADOR */
+#contador-section {
+  padding: 120px 80px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+.contador-intro .label {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 6px;
+  color: var(--gold);
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 24px;
+}
+.contador-intro h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(28px, 4vw, 48px);
+  font-style: italic;
+  color: var(--cream);
+  line-height: 1.2;
+}
+.contador-display {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+}
+.time-block {
+  background: var(--smoke);
+  border: 1px solid rgba(200,132,122,0.08);
+  padding: 36px 24px;
+  text-align: center;
+}
+.time-num {
+  font-family: 'DM Mono', monospace;
+  font-size: clamp(36px, 5vw, 64px);
+  color: var(--cream);
+  display: block;
+  line-height: 1;
+  margin-bottom: 8px;
+  font-weight: 300;
+}
+.time-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 4px;
+  color: rgba(200,132,122,0.4);
+  text-transform: uppercase;
+}
+ 
+/* PROMESAS */
+#promesas {
+  padding: 120px 80px;
+  background: var(--smoke);
+}
+.promesas-inner {
+  max-width: 760px;
+  margin: 0 auto;
+}
+.promesa-item {
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  gap: 32px;
+  align-items: start;
+  padding: 40px 0;
+  border-bottom: 1px solid rgba(200,132,122,0.08);
+  opacity: 0;
+  transform: translateX(-20px);
+  transition: opacity 0.6s, transform 0.6s;
+}
+.promesa-item.visible { opacity: 1; transform: translateX(0); }
+.promesa-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: var(--rose);
+  padding-top: 6px;
+}
+.promesa-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 24px;
+  font-style: italic;
+  color: var(--cream);
+  margin-bottom: 12px;
+}
+.promesa-text {
+  font-size: 15px;
+  line-height: 1.8;
+  color: rgba(245,240,232,0.55);
+  font-weight: 300;
+}
+ 
+/* AUDIO */
+#musica {
+  padding: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+}
+.music-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 6px;
+  color: var(--gold);
+  text-transform: uppercase;
+}
+.music-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(20px, 3vw, 32px);
+  font-style: italic;
+  color: var(--cream);
+  text-align: center;
+}
+.player-wrap {
+  background: var(--smoke);
+  border: 1px solid rgba(200,132,122,0.12);
+  border-radius: 2px;
+  padding: 32px 40px;
+  width: 100%;
+  max-width: 520px;
+}
+.player-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px; height: 60px;
+  border-radius: 50%;
+  border: 1px solid var(--rose);
+  background: transparent;
+  cursor: pointer;
+  color: var(--rose);
+  margin: 0 auto 24px;
+  transition: background 0.3s, transform 0.2s;
+  font-size: 20px;
+}
+.player-btn:hover { background: rgba(200,132,122,0.1); transform: scale(1.05); }
+.player-btn svg { width: 20px; height: 20px; fill: currentColor; }
+.progress-bar {
+  width: 100%;
+  height: 1px;
+  background: rgba(200,132,122,0.2);
+  cursor: pointer;
+  position: relative;
+  margin-bottom: 12px;
+}
+.progress-fill {
+  height: 100%;
+  background: var(--rose);
+  width: 0%;
+  transition: width 0.1s linear;
+  position: relative;
+}
+.progress-fill::after {
+  content: '';
+  position: absolute;
+  right: -3px; top: -3px;
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--rose);
+}
+.time-display {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: rgba(200,132,122,0.4);
+  letter-spacing: 2px;
+  text-align: center;
+}
+.waveform {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  height: 40px;
+  margin-bottom: 20px;
+}
+.wave-bar {
+  width: 3px;
+  border-radius: 2px;
+  background: rgba(200,132,122,0.25);
+  animation: wave 1.2s ease-in-out infinite;
+}
+.wave-bar.active-wave { background: var(--rose); }
+@keyframes wave {
+  0%, 100% { transform: scaleY(0.3); }
+  50% { transform: scaleY(1); }
+}
+ 
+/* MENSAJE SECRETO */
+#secreto {
+  padding: 120px 80px;
+  text-align: center;
+}
+.secreto-wrap {
+  max-width: 640px;
+  margin: 0 auto;
+}
+.secreto-btn {
+  display: inline-block;
+  padding: 16px 48px;
+  border: 1px solid rgba(200,132,122,0.3);
+  background: transparent;
+  color: var(--cream);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 16px;
+  font-style: italic;
+  cursor: pointer;
+  letter-spacing: 2px;
+  transition: all 0.4s;
+  margin-bottom: 48px;
+}
+.secreto-btn:hover {
+  border-color: var(--rose);
+  color: var(--rose);
+  background: rgba(200,132,122,0.05);
+}
+.secreto-text {
+  font-size: clamp(18px, 2.5vw, 24px);
+  line-height: 1.8;
+  color: rgba(245,240,232,0.7);
+  font-weight: 300;
+  font-style: italic;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 1.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.8s;
+  opacity: 0;
+}
+.secreto-text.open { max-height: 800px; opacity: 1; }
+.secreto-text em { color: var(--rose); font-style: normal; }
+ 
+/* FINAL CTA */
+#final {
+  padding: 160px 80px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.final-eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 8px;
+  color: var(--gold);
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 32px;
+}
+.final-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(48px, 10vw, 120px);
+  font-style: italic;
+  color: var(--cream);
+  line-height: 1;
+  margin-bottom: 32px;
+}
+.final-sub {
+  font-size: 18px;
+  color: rgba(245,240,232,0.4);
+  font-style: italic;
+  font-weight: 300;
+}
+.final-deco {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: -1;
+}
+.final-deco-text {
+  font-family: 'Playfair Display', serif;
+  font-size: 30vw;
+  font-style: italic;
+  color: rgba(107,45,58,0.05);
+  white-space: nowrap;
+  user-select: none;
+}
+ 
+/* LIGHTBOX */
+#lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(26,15,15,0.96);
+  z-index: 9000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s, visibility 0.4s;
+}
+#lightbox.open { opacity: 1; visibility: visible; }
+#lightbox img {
+  max-width: 90vw;
+  max-height: 90vh;
+  object-fit: contain;
+  border-radius: 2px;
+}
+#lightbox-close {
+  position: fixed;
+  top: 32px; right: 32px;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: rgba(245,240,232,0.4);
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: color 0.3s;
+}
+#lightbox-close:hover { color: var(--cream); }
+ 
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  nav { padding: 20px 24px; }
+  .nav-links { display: none; }
+  #carta { grid-template-columns: 1fr; padding: 80px 24px; gap: 40px; }
+  .carta-visual { height: 300px; }
+  .cards-grid { grid-template-columns: 1fr; }
+  #razones { padding: 80px 24px; }
+  #contador-section { grid-template-columns: 1fr; padding: 80px 24px; gap: 40px; }
+  #promesas { padding: 80px 24px; }
+  #musica { padding: 60px 24px; }
+  #secreto { padding: 80px 24px; }
+  #final { padding: 100px 24px; }
+  .photos-strip { padding: 0 24px; }
+  .photo-item { flex: 0 0 260px; height: 340px; }
+}
+ 
+/* SCROLL ANIMATIONS */
+.fade-in {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.fade-in.visible { opacity: 1; transform: translateY(0); }
 </style>
+</head>
 <body>
-
-<div id="popup" class="popup">
-  <div class="popup-contenido">
-    <p>Solo puedes entrar si me prometes que me amas :) JAHSJSHAJA LIT DEBERIAS (amo tu sonrisa)</p>
-    <button onclick="cerrarPopup()">(?)que tenia que ver JAJA te amo.</button>
+ 
+<canvas id="canvas-bg"></canvas>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursor-ring"></div>
+ 
+<!-- PRELOADER -->
+<div id="preloader">
+  <p class="pre-text">M</p>
+  <p class="pre-sub">Cargando algo muy especial</p>
+  <div class="pre-bar"></div>
+</div>
+ 
+<!-- LIGHTBOX -->
+<div id="lightbox">
+  <button id="lightbox-close" onclick="closeLightbox()">Cerrar × esc</button>
+  <img id="lightbox-img" src="" alt="">
+</div>
+ 
+<!-- NAV -->
+<nav>
+  <span class="nav-logo">M + S</span>
+  <ul class="nav-links">
+    <li><a href="#carta">Carta</a></li>
+    <li><a href="#razones">Razones</a></li>
+    <li><a href="#galeria">Fotos</a></li>
+    <li><a href="#promesas">Promesas</a></li>
+  </ul>
+</nav>
+ 
+<!-- HERO -->
+<section id="hero">
+  <p class="hero-eyebrow">Para Melannie, con todo mi corazón</p>
+  <h1 class="hero-title">
+    Tú y<br>
+    <span class="accent">yo</span>
+  </h1>
+  <p class="hero-sub">Siempre, en todos los universos posibles</p>
+  <div class="hero-scroll">Descubrir</div>
+</section>
+ 
+<!-- TICKER -->
+<div class="ticker-wrap" aria-hidden="true">
+  <div class="ticker-track">
+    <span class="ticker-item">Te amo<span class="dot">✦</span></span>
+    <span class="ticker-item">Mi favorita<span class="dot">✦</span></span>
+    <span class="ticker-item">Para siempre<span class="dot">✦</span></span>
+    <span class="ticker-item">Melannie<span class="dot">✦</span></span>
+    <span class="ticker-item">Eres mi hogar<span class="dot">✦</span></span>
+    <span class="ticker-item">Contigo<span class="dot">✦</span></span>
+    <span class="ticker-item">Infinito<span class="dot">✦</span></span>
+    <span class="ticker-item">Te elijo<span class="dot">✦</span></span>
+    <span class="ticker-item">Te amo<span class="dot">✦</span></span>
+    <span class="ticker-item">Mi favorita<span class="dot">✦</span></span>
+    <span class="ticker-item">Para siempre<span class="dot">✦</span></span>
+    <span class="ticker-item">Melannie<span class="dot">✦</span></span>
+    <span class="ticker-item">Eres mi hogar<span class="dot">✦</span></span>
+    <span class="ticker-item">Contigo<span class="dot">✦</span></span>
+    <span class="ticker-item">Infinito<span class="dot">✦</span></span>
+    <span class="ticker-item">Te elijo<span class="dot">✦</span></span>
   </div>
 </div>
-
-
-  
-<header><h1>TE RETO A Q NO TE RIASS!!✨</h1></header>
-
-<div class="grid">
-
-<div class="card">
-<h2>💌 Si aún no lo has hecho entonces</h2>
-<div class="carta">
-Mira esto... ❤️<br><br>
-Melannie, cada día q te hablo me enamoro mas de ti, como si se tratase de una persona cuando crece, es algo inevitable, (que tenia que ver?)(JAJAJAJAJA)(me encantas) cada vez que te miro o pienso en ti siento q se me va a salir el corazón, tienes el poder mágico de hacerme sonreír cuando ni estas aqui presente, te digo q tu eres la mujer q quiero de novia y ojalá algún día algo más, pero si estoy claro q quiero ser feliz a tu lado, reír a tu lado, jugar a tu lado, amar a tu lado, soñar a tu lado y como nada es perfecto… también quiero llorar a tu lado, me estás mostrando que eres una mujer maravillosa y que vale totalmente la pena y ojalá ese día que tanto estamos esperando sea pronto jijiji.<br>
-me gustas ok? ok.
-</div>
-</div>
-
-<div class="card">
-<h2>🎵 a mi me gustas mucho tu pero también me gusta lo q a ti te gusta, y quisiera pues ponerte esta cancion q te gusta</h2>
-<p>Litt, siempre pienso en ti cuando la escucho ❤️</p>
-<audio controls style="width:100%; margin-top:10px;">
-<source src="https://drive.google.com/uc?export=download&id=1Q-R9Ub7c7EloDdxHj3P8qSGzh__n0C5l" type="audio/mpeg">
-</audio>
-</div>
-
-<div class="card">
-<h2>🥹 Razones por las que te quiero tanto</h2>
-<ul>
-<li>Porque me valoras</li>
-<li>Porque supuestamente me quieres JAJAJA</li>
-<li>Porque a tu lado podemos ser los 2 :)</li>
-</ul>
-</div>
-
-<div class="card">
-<h2> ¿Joa sabes qué me encanta de nosotros?</h2>
-<ul>
-<li>Cuando nos reímos sin motivo alguno</li>
-<li>Q somos súper sinceros</li>
-<li>Los 2 queremos siempre estar juntitos🫂</li>
-</ul>
-</div>
-
-<div class="card">
-<h2>📸 un poquito de nosotros</h2>
-<div class="galeria">
-<img src="https://i.imgur.com/HWHNM4S.jpeg">
-<img src="https://i.imgur.com/XFe0tNV.jpeg">
-<img src="https://i.imgur.com/tJ9ixxn.jpeg">
-
-<img src="https://i.imgur.com/rajxcrq.jpeg">
-  <img src="https://i.imgur.com/OpkhG6v.jpeg"
-<img src="https://i.imgur.com/GzaX8eu.jpeg">
-</div>
-</div>
-<br>
-<div class="card">
-<h2>🤞 Promesas</h2>
-<ul>
-<li>prometo siempre estar para ti mi ñiña</li>
-<li>prometo escucharte y hacerte feliz</li>
-<li>prometo elegirte todos los putos días</li>
-</ul>
-</div>
-<br>
-<div class="card">
-<h2>❤️ melannie si algún día dudas...</h2>
-<p>puedes volver aqui y recordar cuánto te quiero.</p>
-</div>
-<br>
-<div class="card">
-<h2>no undas el botón de abajo</h2>
-<button onclick="alert(`TE DIJE QUE NOOOO, bueno ahora te lees todo esto por chismosa.
-
-Q ya q insistes quiero recordarte que lo q mas deseo en los 11:11 es q cada momento contigo sea único, melove no quiero NADA que lo nuestro se convierta en rutina o en algo aburrido.
-
-Genuinamente quiero sorprenderte, hacerte reír, compartir locuras y momentos q solo nosotros dos sepamos Y NADIE MÁS.
-
-Quierooo que cada besooo, cada abrazooo de esos de despedida y cada mirada sigan teniendo la misma intensidad y el mismo sentimiento del primer día q te vi en ese McDonald's.
-
-Contigo quiero un amor que no tenga fecha de caducidad Melannie, no estoy aquí para un rato, ni para jugar con tus emociones.
-
-Ya me cansé de buscar a la indicada y a ti no te busqué… te encontré, y ojalá siempre seas tú la q esté a mi lado.
-
-Quiero que lo nuestro crezca y se fortalezca con el tiempo, que cada día sea una oportunidad para amarnos más y más y más, infinito de infinitos, para aprender juntos y para escribir una historia que valga la pena recordar y decirle a mis hijos. ❤️
-
-Mi amor, yo sabia que ibas a revisar esto JAHSJAJA bueno ya que ahora leete esto desobediente
-
-Meloveeee si algún día estás triste o sientes que todo se te viene encima, quiero que recuerdes que aquí tienes a alguien que no se va a ir, que no se cansa de ti y que siempre va a intentar sacarte una sonrisa :) aunque sea haciendo algo q me de MUCHA PENA JASHAJS.
-
-Quiero ser ese lugar al que siempre quieras volver donde te sientas tranquila, segura y AMADA (YA TE LO PUEDO DECIR:)) y lo mejor sin tener que fingir nada de nada👉🏿👈🏿
-
-espero q no vuelvas por aqui el otro domingo eh...`)">melove ya te lo advertí. 👀</button>
-</div>
-<br>
-<div class="card">
-<h2>⏳ Este es el tiempo q llevamos conociéndonos pa q no te pierdas (vamos por 100💪)</h2>
-<div id="contador"></div>
-</div>
-<br>
-</div>
-
-<div class="card">
-<h2>💌 Lit te amo :))))</h2>
-<div class="carta">
-MELOVE LIT NO sé en qué momento te volviste tan importante para mí, pero ahora mismo no me imagino no estar a tu lado, solo pienso en ti y en que estaras haciendooooo.<br><br>
-
-me encanta cómo eres, cómo piensas, cómo me haces sentir lit si me escuchaste :). Contigo todo se siente diferente, más real, más bonito IHIJIJIJIJI ME MUEROOO MIENTAS ESCRIBO ESTO.<br><br>
-
-poco a poco nos vamos uniendo mas y mas, cuando te escucho hablar siemplemente algo dentro de mi cambia y solo quisiera que ese momento se volviera eternooo.<br><br>
-
-</div>
-</div>
-<br><br>
-  <div class="card">
-<h2>mi niña</h2>
-<ul>
-<li>MIRA Q AHORA EN ADELANTE en cada momento te dire que te amo y creeme q es porque el corazón me pide a GRITOOS que te haga saber que eres lo más bonito que tengo en mi LIFE, te amooo.</li>
-
-</ul>
+ 
+<!-- CARTA -->
+<section id="carta">
+  <div class="fade-in">
+    <p class="carta-label">01 — La carta</p>
+    <h2 class="carta-title">Cada día me enamoro<br>un poco más</h2>
+    <p class="carta-body">
+      Melannie, hay algo que quiero que sepas: <em>me encantas</em>. No de una forma que pueda explicar fácilmente, sino de esa forma que te hace querer estar cerca todo el tiempo, que te hace sonreír solo de pensar en esa persona.<br><br>
+      Contigo todo tiene más color. Más sentido. Más razón de ser. Y lo que más me gusta es que podemos ser exactamente nosotros: sin filtros, sin máscaras, solo <em>tú y yo</em>.<br><br>
+      Quiero que sepas que te elijo. Hoy, mañana y todos los días que vengan.
+    </p>
   </div>
-<br><br>
-  <div class="card">
-  <br><br>
-<button onclick="location.href='https://mi-mujer-la-mejor.github.io/Melannie-te-amo/'">
-Que es esto?🫣
-</button>
-  <br><br>
+  <div class="carta-visual fade-in">
+    <div class="carta-orb">
+      <div class="orb-ring"></div>
+      <div class="orb-ring"></div>
+      <div class="orb-ring"></div>
+      <span class="orb-text">♡</span>
+    </div>
   </div>
-    
+</section>
+ 
+<!-- RAZONES -->
+<section id="razones">
+  <div class="section-header fade-in">
+    <span class="label">02 — Por qué</span>
+    <h2>Razones por las que<br>me encantas</h2>
+  </div>
+  <div class="cards-grid">
+    <div class="reveal-card fade-in" style="transition-delay: 0.1s">
+      <span class="card-num">01</span>
+      <p class="card-front-text">Tu manera de reír</p>
+      <div class="card-hover-text">Cuando te ríes de verdad, de esa risa que no puedes controlar, es imposible no contagiarse. Es de las cosas más bonitas que he visto en mi vida.</div>
+    </div>
+    <div class="reveal-card fade-in" style="transition-delay: 0.2s">
+      <span class="card-num">02</span>
+      <p class="card-front-text">Tu sinceridad</p>
+      <div class="card-hover-text">Que podamos decirnos las cosas como son, sin rodeos, es algo que valoro más de lo que imaginas. Contigo no tengo que adivinar nada.</div>
+    </div>
+    <div class="reveal-card fade-in" style="transition-delay: 0.3s">
+      <span class="card-num">03</span>
+      <p class="card-front-text">Cómo me haces sentir</p>
+      <div class="card-hover-text">Cuando estoy contigo o cuando solo pienso en ti, hay algo que cambia por dentro. Te llevo en el corazón todo el día, así no estés presente.</div>
+    </div>
+    <div class="reveal-card fade-in" style="transition-delay: 0.4s">
+      <span class="card-num">04</span>
+      <p class="card-front-text">Que me valores</p>
+      <div class="card-hover-text">Saber que me tienes en cuenta, que lo que pienso y siento importa para ti, es algo que no doy por sentado. Gracias por eso, en serio.</div>
+    </div>
+    <div class="reveal-card fade-in" style="transition-delay: 0.5s">
+      <span class="card-num">05</span>
+      <p class="card-front-text">Que quieras estar juntitos</p>
+      <div class="card-hover-text">No hay nada mejor que saber que la otra persona también quiere estar cerca. Que tú lo quieras me dice todo lo que necesito saber.</div>
+    </div>
+    <div class="reveal-card fade-in" style="transition-delay: 0.6s">
+      <span class="card-num">06</span>
+      <p class="card-front-text">Tú, simplemente</p>
+      <div class="card-hover-text">No es una cosa en particular. Es todo junto. Es cómo hablas, cómo piensas, cómo eres. Melannie, tú eres la razón principal.</div>
+    </div>
+  </div>
+</section>
+ 
+<!-- GALERIA -->
+<section id="galeria">
+  <span class="galeria-label">03 — Un poquito de nosotros</span>
+  <div class="photos-strip" id="photos-strip">
+    <div class="photo-item" onclick="openLightbox(this)">
+      <img src="https://i.imgur.com/HWHNM4S.jpeg" alt="Nosotros">
+      <div class="photo-caption">Nosotros ✦</div>
+    </div>
+    <div class="photo-item" onclick="openLightbox(this)">
+      <img src="https://i.imgur.com/XFe0tNV.jpeg" alt="Nosotros">
+      <div class="photo-caption">Nosotros ✦</div>
+    </div>
+    <div class="photo-item" onclick="openLightbox(this)">
+      <img src="https://i.imgur.com/tJ9ixxn.jpeg" alt="Nosotros">
+      <div class="photo-caption">Nosotros ✦</div>
+    </div>
+    <div class="photo-item" onclick="openLightbox(this)">
+      <img src="https://i.imgur.com/rajxcrq.jpeg" alt="Nosotros">
+      <div class="photo-caption">Nosotros ✦</div>
+    </div>
+    <div class="photo-item" onclick="openLightbox(this)">
+      <img src="https://i.imgur.com/OpkhG6v.jpeg" alt="Nosotros">
+      <div class="photo-caption">Nosotros ✦</div>
+    </div>
+    <div class="photo-item" onclick="openLightbox(this)">
+      <img src="https://i.imgur.com/GzaX8eu.jpeg" alt="Nosotros">
+      <div class="photo-caption">Nosotros ✦</div>
+    </div>
+  </div>
+  <p class="scroll-hint">← Desliza para ver más →</p>
+</section>
+ 
+<!-- CONTADOR -->
+<section id="contador-section">
+  <div class="fade-in">
+    <span class="label">04 — El tiempo juntos</span>
+    <h2 class="contador-intro" style="margin-top:0">
+      Desde el primer día que te vi,<br>
+      <em style="color:var(--rose); font-style:normal">el tiempo se cuenta diferente</em>
+    </h2>
+  </div>
+  <div class="contador-display fade-in">
+    <div class="time-block">
+      <span class="time-num" id="t-dias">0</span>
+      <span class="time-label">Días</span>
+    </div>
+    <div class="time-block">
+      <span class="time-num" id="t-horas">0</span>
+      <span class="time-label">Horas</span>
+    </div>
+    <div class="time-block">
+      <span class="time-num" id="t-min">0</span>
+      <span class="time-label">Minutos</span>
+    </div>
+    <div class="time-block">
+      <span class="time-num" id="t-seg">0</span>
+      <span class="time-label">Segundos</span>
+    </div>
+  </div>
+</section>
+ 
+<!-- MUSICA -->
+<section id="musica">
+  <span class="music-label">05 — Esta canción me recuerda a ti</span>
+  <h2 class="music-title fade-in">Siempre pienso en ti<br>cuando la escucho</h2>
+  <div class="player-wrap fade-in">
+    <div class="waveform" id="waveform"></div>
+    <button class="player-btn" id="play-btn" onclick="togglePlay()" aria-label="Reproducir">
+      <svg id="play-icon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+    </button>
+    <div class="progress-bar" id="prog-bar" onclick="seekAudio(event)">
+      <div class="progress-fill" id="prog-fill"></div>
+    </div>
+    <p class="time-display" id="time-disp">0:00 / 0:00</p>
+    <audio id="audio-player">
+      <source src="https://drive.google.com/uc?export=download&id=1Q-R9Ub7c7EloDdxHj3P8qSGzh__n0C5l" type="audio/mpeg">
+    </audio>
+  </div>
+</section>
+ 
+<!-- PROMESAS -->
+<section id="promesas">
+  <div class="section-header fade-in">
+    <span class="label">06 — Mis promesas</span>
+    <h2>Lo que te juro<br>con el corazón</h2>
+  </div>
+  <div class="promesas-inner">
+    <div class="promesa-item">
+      <span class="promesa-num">01</span>
+      <div>
+        <p class="promesa-title">Siempre estar para ti</p>
+        <p class="promesa-text">No importa el momento, no importa cómo sea el día. Si me necesitas, aquí voy a estar. Sin condiciones, sin horarios, sin excusas.</p>
+      </div>
+    </div>
+    <div class="promesa-item">
+      <span class="promesa-num">02</span>
+      <div>
+        <p class="promesa-title">Escucharte de verdad</p>
+        <p class="promesa-text">No solo oírte, sino escucharte. Lo que sientes, lo que piensas, lo que te preocupa. Todo importa, porque tú me importas.</p>
+      </div>
+    </div>
+    <div class="promesa-item">
+      <span class="promesa-num">03</span>
+      <div>
+        <p class="promesa-title">Elegirte todos los días</p>
+        <p class="promesa-text">No porque tenga que hacerlo, sino porque quiero. Cada día me levanto y tú eres la razón por la que sonrío antes de hacer nada más.</p>
+      </div>
+    </div>
+    <div class="promesa-item">
+      <span class="promesa-num">04</span>
+      <div>
+        <p class="promesa-title">Sorprenderte siempre</p>
+        <p class="promesa-text">No quiero que lo nuestro se vuelva rutina. Quiero que cada momento contigo sea algo que vale la pena recordar. Te lo prometo.</p>
+      </div>
+    </div>
+  </div>
+</section>
+ 
+<!-- SECRETO -->
+<section id="secreto">
+  <div class="secreto-wrap fade-in">
+    <p class="carta-label" style="text-align:center; margin-bottom:32px">07 — Solo para ti</p>
+    <button class="secreto-btn" id="secreto-btn" onclick="abrirSecreto()">
+      Hay algo más que quiero decirte...
+    </button>
+    <p class="secreto-text" id="secreto-text">
+      Melannie, no sé exactamente en qué momento cruzaste del "me gustas" al "te necesito" — pero ya pasó, y no me arrepiento ni un poco.<br><br>
+      Genuinamente quiero <em>sorprenderte</em>, hacerte reír, compartir locuras y vivir momentos que solo nosotros dos sepamos. Quiero un amor que no tenga fecha de caducidad.<br><br>
+      No estoy aquí de paso. No estoy aquí a jugar. Estoy aquí porque <em>quiero estar</em>, porque tú vales exactamente eso y mucho más.<br><br>
+      Ya me cansé de buscar a la indicada... y a ti no te busqué. Te encontré. Y ojalá siempre seas tú la que esté a mi lado.<br><br>
+      <em>Te amo, mi niña. Con todo.</em>
+    </p>
+  </div>
+</section>
+ 
+<!-- FINAL -->
+<section id="final">
+  <div class="final-deco" aria-hidden="true">
+    <span class="final-deco-text">♡</span>
+  </div>
+  <span class="final-eyebrow fade-in">Para siempre y siempre</span>
+  <h2 class="final-title fade-in">Te amo,<br>Melannie</h2>
+  <p class="final-sub fade-in">En este y en todos los universos posibles.</p>
+</section>
+ 
 <script>
-const inicio = new Date("2026-03-11");
-function actualizar(){
-let ahora = new Date();
-let dif = ahora - inicio;
-let dias = Math.floor(dif/(1000*60*60*24));
-let horas = Math.floor((dif/(1000*60*60))%24);
-let min = Math.floor((dif/(1000*60))%60);
-let seg = Math.floor((dif/1000)%60);
-
-document.getElementById("contador").innerHTML =
-`${dias} días ${horas}h ${min}m ${seg}s ❤️`;
+// CURSOR
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursor-ring');
+let mx = 0, my = 0, rx = 0, ry = 0;
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  cursor.style.transform = `translate(${mx - 3}px, ${my - 3}px)`;
+});
+function animateRing() {
+  rx += (mx - rx) * 0.15;
+  ry += (my - ry) * 0.15;
+  ring.style.transform = `translate(${rx - 16}px, ${ry - 16}px)`;
+  requestAnimationFrame(animateRing);
 }
-setInterval(actualizar,1000);
-
-function crearCorazon(){
-let c = document.createElement("div");
-c.className="corazon";
-c.innerHTML="❤";
-c.style.left=Math.random()*100+"vw";
-c.style.animationDuration=(4+Math.random()*5)+"s";
-document.body.appendChild(c);
-setTimeout(()=>c.remove(),9000);
+animateRing();
+document.querySelectorAll('a, button, .reveal-card, .photo-item').forEach(el => {
+  el.addEventListener('mouseenter', () => {
+    ring.style.width = '48px'; ring.style.height = '48px';
+    ring.style.borderColor = 'rgba(200,132,122,0.6)';
+  });
+  el.addEventListener('mouseleave', () => {
+    ring.style.width = '32px'; ring.style.height = '32px';
+    ring.style.borderColor = 'rgba(200,132,122,0.4)';
+  });
+});
+ 
+// PARTICLES
+const canvas = document.getElementById('canvas-bg');
+const ctx = canvas.getContext('2d');
+let W, H, particles = [];
+function resize() {
+  W = canvas.width = window.innerWidth;
+  H = canvas.height = window.innerHeight;
 }
-setInterval(crearCorazon,700);
-
-
-function cerrarPopup(){
-  document.getElementById("popup").style.display = "none";
+resize();
+window.addEventListener('resize', resize);
+for (let i = 0; i < 80; i++) {
+  particles.push({
+    x: Math.random() * window.innerWidth,
+    y: Math.random() * window.innerHeight,
+    r: Math.random() * 1.5 + 0.3,
+    vx: (Math.random() - 0.5) * 0.15,
+    vy: -Math.random() * 0.2 - 0.05,
+    op: Math.random() * 0.4 + 0.05
+  });
 }
+function drawParticles() {
+  ctx.clearRect(0, 0, W, H);
+  particles.forEach(p => {
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(200, 132, 122, ${p.op})`;
+    ctx.fill();
+    p.x += p.vx;
+    p.y += p.vy;
+    if (p.y < -5) { p.y = H + 5; p.x = Math.random() * W; }
+    if (p.x < 0 || p.x > W) p.vx *= -1;
+  });
+  requestAnimationFrame(drawParticles);
+}
+drawParticles();
+ 
+// PRELOADER
+setTimeout(() => {
+  document.getElementById('preloader').classList.add('hidden');
+}, 3000);
+ 
+// INTERSECTION OBSERVER
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.15 });
+document.querySelectorAll('.fade-in, .promesa-item').forEach(el => observer.observe(el));
+ 
+// COUNTER
+const inicio = new Date('2026-03-11');
+function actualizarContador() {
+  const ahora = new Date();
+  const dif = ahora - inicio;
+  const dias = Math.floor(dif / 86400000);
+  const horas = Math.floor((dif % 86400000) / 3600000);
+  const min = Math.floor((dif % 3600000) / 60000);
+  const seg = Math.floor((dif % 60000) / 1000);
+  document.getElementById('t-dias').textContent = String(dias).padStart(2, '0');
+  document.getElementById('t-horas').textContent = String(horas).padStart(2, '0');
+  document.getElementById('t-min').textContent = String(min).padStart(2, '0');
+  document.getElementById('t-seg').textContent = String(seg).padStart(2, '0');
+}
+actualizarContador();
+setInterval(actualizarContador, 1000);
+ 
+// WAVEFORM
+const wf = document.getElementById('waveform');
+for (let i = 0; i < 28; i++) {
+  const b = document.createElement('div');
+  b.className = 'wave-bar';
+  b.style.height = (Math.random() * 28 + 6) + 'px';
+  b.style.animationDelay = (i * 0.08) + 's';
+  b.style.animationDuration = (0.8 + Math.random() * 0.8) + 's';
+  wf.appendChild(b);
+}
+let isPlaying = false;
+const audio = document.getElementById('audio-player');
+const playIcon = document.getElementById('play-icon');
+const progFill = document.getElementById('prog-fill');
+const timeDisp = document.getElementById('time-disp');
+function formatTime(s) {
+  const m = Math.floor(s / 60);
+  const ss = Math.floor(s % 60);
+  return m + ':' + String(ss).padStart(2, '0');
+}
+function togglePlay() {
+  if (isPlaying) {
+    audio.pause();
+    playIcon.innerHTML = '<path d="M8 5v14l11-7z"/>';
+    document.querySelectorAll('.wave-bar').forEach(b => b.classList.remove('active-wave'));
+  } else {
+    audio.play().catch(() => {});
+    playIcon.innerHTML = '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>';
+    document.querySelectorAll('.wave-bar').forEach(b => b.classList.add('active-wave'));
+  }
+  isPlaying = !isPlaying;
+}
+audio.addEventListener('timeupdate', () => {
+  if (audio.duration) {
+    progFill.style.width = (audio.currentTime / audio.duration * 100) + '%';
+    timeDisp.textContent = formatTime(audio.currentTime) + ' / ' + formatTime(audio.duration);
+  }
+});
+audio.addEventListener('ended', () => {
+  isPlaying = false;
+  playIcon.innerHTML = '<path d="M8 5v14l11-7z"/>';
+  document.querySelectorAll('.wave-bar').forEach(b => b.classList.remove('active-wave'));
+  progFill.style.width = '0%';
+});
+function seekAudio(e) {
+  if (!audio.duration) return;
+  const rect = document.getElementById('prog-bar').getBoundingClientRect();
+  audio.currentTime = ((e.clientX - rect.left) / rect.width) * audio.duration;
+}
+ 
+// SECRETO
+function abrirSecreto() {
+  const btn = document.getElementById('secreto-btn');
+  const txt = document.getElementById('secreto-text');
+  txt.classList.toggle('open');
+  btn.textContent = txt.classList.contains('open')
+    ? 'Cerrar ×'
+    : 'Hay algo más que quiero decirte...';
+}
+ 
+// LIGHTBOX
+function openLightbox(el) {
+  const src = el.querySelector('img').src;
+  document.getElementById('lightbox-img').src = src;
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.getElementById('lightbox').addEventListener('click', e => {
+  if (e.target === document.getElementById('lightbox')) closeLightbox();
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeLightbox();
+});
+ 
+// PARALLAX HERO
+window.addEventListener('scroll', () => {
+  const hero = document.getElementById('hero');
+  const scrolled = window.scrollY;
+  hero.style.transform = `translateY(${scrolled * 0.3}px)`;
+  hero.style.opacity = 1 - scrolled / 500;
+});
 </script>
-
-
 </body>
+</html>
 
 </html>
